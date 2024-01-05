@@ -1,0 +1,16 @@
+---
+- name: my first playbook
+  hosts: all
+  gather_facts: false
+ #ignore_errors: true
+  become: true 
+  tasks:
+    - name: check the date
+      command: date
+      ignore_errors: yes
+    - name: check the time
+      command : uptime
+       
+
+    
+  

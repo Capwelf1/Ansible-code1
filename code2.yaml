@@ -1,0 +1,35 @@
+---
+- name: my second playbook
+  hosts: all
+  gather_facts: 1
+  vars:
+    user_name: delano12
+    color: red
+  become: true
+  tasks:
+      - name: install password package
+        yum:
+          name: passwd
+          update_cache: yes
+          state: present 
+        when: ansible_distribution  in " Amazon Linux"
+      - name: create group
+        group:
+           name: cloudteam
+           state: present 
+        #when: ansible_distribution_major_version < 9
+      - name: create user
+        user:
+          name: "{{user_name}}"
+          comment: Delano Admin
+          group: cloudteam
+# - hosts: ws
+#   become: yes 
+#   tasks:
+#      - name: copy index file
+#        copy:
+#          src: index.html
+#          dest: var/www/html/index.html
+#          mode: '0644'
+        
+ 
